@@ -1,8 +1,17 @@
-import Secure_Data
+'''Email functions
+
+Contains code for sending emails for 
+various projects.
+'''
+
+# Libraries
 import smtplib, ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
+import Secure_Data # Code containing my personal information
+
+# Send email with times, temperature, and wind speed for biking
 def send_biking_email(intervals, temp, wind_speed):
   
   # Email Information
@@ -11,8 +20,9 @@ def send_biking_email(intervals, temp, wind_speed):
   sender_email = Secure_Data.sender_email
   receiver_email = Secure_Data.receiver_email
   password = Secure_Data.password
-
-  # The message
+  
+  # The email message
+  # Sentence detailing good times
   if len(intervals) == 1:
     interval_text = "A good time is " + intervals[0] + "."
   elif len(intervals) == 2:
@@ -22,6 +32,7 @@ def send_biking_email(intervals, temp, wind_speed):
     for i in range(len(intervals)-1):
       interval_text += intervals[i] + ", "
     interval_text += " and " + intervals[-1] + "."
+  # Full html message
   html = """\
   <html>
     <body>
@@ -34,7 +45,7 @@ def send_biking_email(intervals, temp, wind_speed):
     </body>
   </html>
   """
-
+  
   # Convert message to MIME
   message = MIMEMultipart()
   message["Subject"] = "Go Biking!"
