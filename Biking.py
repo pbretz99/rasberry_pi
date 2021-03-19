@@ -1,3 +1,10 @@
+'''Biking notification script
+
+This is a script that sends me an email remind me to 
+bike if the weather forecast is good and my schedule 
+is open.
+'''
+
 # Libraries
 import json
 import requests
@@ -8,7 +15,7 @@ import Emails      # Code containing functions for sending emails
 import Secure_Data # Code containing my personal information
 
 # Set parameters for when I might want to bike
-max_forecast = 12        # Only look at forecasts less than 12 hours away
+max_forecast = 24        # Only look at forecasts less than 12 hours away
 min_temp = 55            # Temperatures higher than 55 degrees F
 max_wind_speed = 15      # Wind speeds below 15 mph
 # Available times, by day
@@ -83,7 +90,7 @@ for entry in forecast_data["hourly"]:
                biking_times.append(forecast_time)
                # Save temperature and wind speed
                forecast_temps.append(temp)
-               forecast_wind_speeds.append(temp)
+               forecast_wind_speeds.append(wind_speed)
 
 # Utility function, makes time interval into a string
 def make_interval_string(start, end):
